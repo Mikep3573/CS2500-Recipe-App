@@ -1,0 +1,41 @@
+Tables:
+- Author
+	- A_ID: Primary Key, INT
+	- F_Name: TEXT
+	- L_Name: TEXT
+	- City: TEXT
+	- Age: INT
+- Recipe
+	- R_ID: Primary Key, INT
+	- A_ID: Foreign Key, INT
+	- Name: Text
+	- Description: Text
+	- Created: TEXT
+	- Avg_Cost: REAL
+	- Rating: INT
+	- Difficulty: INT (ordered between 1 and 5)
+	- Calories: INT
+- Ingredients:
+	- I_ID: Primary Key, INT
+	- Name: TEXT
+	- Description: TEXT
+	- Avg_Cost: REAL
+	- Shelf_Life: INT
+- RecipeIngredients:
+	- R_ID: Foreign Key (Partial Key), INT
+	- I_ID: Foreign Key (Partial Key), INT
+
+Relationships:
+- Author has many recipes (recipe has one author)
+- Recipe has many ingredients (ingredients are in many recipes)
+
+Functionality:
+- Add a recipe (using existing authors and ingredients), author, ingredients
+- Remove a recipe, author, ingredients
+- Modify recipe, author, ingredients
+- Statistical queries (mean, min, max, median, and standard deviation on all numerical columns)
+- Select & View authors, recipes, ingredients based on filter
+- List associated author and/or associated ingredients (JOIN requirement)
+- Author age vs. average recipe rating (Scatter Plot)
+- Recipe rating distribution (Bar Chart)
+- Calories by difficulty level (Box Plot)
