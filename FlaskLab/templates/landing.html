@@ -1,0 +1,46 @@
+<!-- This HTML file extends the base.html template, inheriting its structure and styles -->
+
+{% extends 'base.html' %}
+
+<!-- This is how we fill the Title Block of our base html -->
+{% block title %}Landing{% endblock %}
+
+<!-- TThis is how we fill the Content Block of our base html -->
+{% block content %}
+
+<!-- The content is wrapped inside a column with specific Bootstrap classes for styling -->
+<div class="container">
+  <!-- A lead paragraph with some text -->
+  <p class="lead">
+    Very Cool and Awesome Landing Page!<br/>
+  </p>
+
+  <ul>
+    <li>
+        <a href="/hello-jackie">Hello Jackie!</a>
+    </li>
+    <li>
+      <a href="/hello-sum">Sum</a>
+    </li>
+    <li>
+      <a href="/index-with-sum">Index w/ Sqr</a>
+    </li>
+    <li>
+    <a href="/form">Form</a>
+    </li>
+    <li>
+      <a href="/graph">Matplotlib Plot</a>
+    </li>
+    <li>
+      <a href="/graph_alt">Matplotlib Plot ALT!</a>
+    </li>
+    <li>
+      <a href="/table">Table!</a>
+    </li>
+
+</ul>
+
+</div>
+
+<!-- End of content block -->
+{% endblock %}

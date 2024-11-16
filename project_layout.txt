@@ -30,12 +30,17 @@ Relationships:
 - Recipe has many ingredients (ingredients are in many recipes)
 
 Functionality:
+(Change Recipes) recipe_edit.html
 - Add a recipe (using existing authors and ingredients), author, ingredients
 - Remove a recipe, author, ingredients
 - Modify recipe, author, ingredients
-- Statistical queries (mean, min, max, median, and standard deviation on all numerical columns)
-- Select & View authors, recipes, ingredients based on filter
-- List associated author and/or associated ingredients (JOIN requirement)
-- Author age vs. average recipe rating (Scatter Plot)
-- Recipe rating distribution (Bar Chart)
-- Calories by difficulty level (Box Plot)
+
+(View Recipes) recipes.html:
+	- List Recipe and associated author or Recipe and associated ingredients (JOIN requirement)
+	- Select & View authors, recipes, ingredients based on filter
+
+(Get Statistics) stats.html:
+	- Author age vs. average recipe rating (Scatter Plot)
+	- Recipe rating distribution (Bar Chart)
+	- Calories by difficulty level (Box Plot)
+	- Statistical queries (mean, min, max, median, and standard deviation on all numerical columns)

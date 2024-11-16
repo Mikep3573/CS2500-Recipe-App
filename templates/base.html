@@ -1,0 +1,27 @@
+<!--- Sets up the base html to be used in all pages -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../static/style.css" />
+
+    <!-- The title of the HTML page is set dynamically using the block tag -->
+    <title>{% block title %} Recipe App {% endblock %}</title>
+  </head>
+  <body>
+    <header class="header">
+      <a class="title" href="/">Recipe App</a>
+      <nav class="navbar">
+        <a href="recipes">View Recipes</a>
+        <a href="recipes_edit">Change Recipes</a>
+        <a href="stats">Get Statistics</a>
+      </nav>
+    </header>
+    <main>
+      <!-- Accept content from other html files -->
+      {% block content %} {% endblock %}
+    </main>
+  </body>
+</html>

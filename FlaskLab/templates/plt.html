@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Graph{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Generated Graph</h2>
+  <!-- Display the graph image -->
+  <img src="{{ url_for('graph_image') }}" alt="Generated Graph" class="img-fluid">
+
+</div>
+{% endblock %}

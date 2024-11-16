@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Form Result Page{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <p class="lead">
+    <!-- Using Flask, the 'name', 'num' and 'sqr' are replaced with an actual value that is sent in when the page is selected -->
+    The Name is {{ name }}!<br/>
+    And the square of {{num}} is {{ sqr }}
+  </p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Sum{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <p class="lead">
+    <!-- Using Flask, the 'my_sum' is replaced with an actual value that is sent in when the page is selected -->
+    My sum is {{ my_sum }}!<br/>
+  </p>
+
+
+</div>
+
+{% endblock %}

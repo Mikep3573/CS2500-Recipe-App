@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+<!-- Set the title of the page -->
+{% block title %}Your Recipes{% endblock %}
+
+<!-- Start of content definition -->
+{% block content %}
+
+<!-- Have the user choose what numerical column to use -->
+<label for="cars" class="dropdown-label">Choose a column to work with:</label>
+
+<select name="num-cols" id="num-cols" class="dropdown">
+  <option>Col 1</option>
+  <option>Col 2</option>
+  <option>Col 3</option>
+  <option>Col 4</option>
+</select>
+
+<div class="container-buttons">
+  <!-- The menu of choices dealing with recipes -->
+  <ol>
+    <li><button>Mean</button></li>
+    <li><button>Minimum</button></li>
+    <li><button>Maximum</button></li>
+    <li><button>Median</button></li>
+    <li><button>Standard Deviation</button></li>
+  </ol>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+<!-- This HTML file extends the base.html template, inheriting its structure and styles -->
+{% extends 'base.html' %}
+
+<!-- This is how we fill the Title Block of our base html -->
+{% block title %}Form{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <!-- This is a lead paragraph indicating the purpose of the form -->
+  <p class="lead">My Awesome! Form</p>
+
+  <!-- This is the form itself, using the POST method to submit data -->
+  <form action="{{ url_for('form') }}" method="post">
+    <div><label>Enter a String: <input type="text" name="form_str"></label></div>
+    <div><label>Enter a Number: <input type="number" name="form_int" value="0" step="1" pattern="\d+" /></label></div>
+    <input type="submit" value="Submit">
+  </form>
+
+</div>
+
+{% endblock %}
