@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+<!-- Set the title of the page -->
+{% block title %}Your Recipes{% endblock %}
+
+<!-- Start of content definition -->
+{% block content %}
+<!-- Let the user pick from a dropdown and give associated where clause -->
+<form method="POST" action="/where_query">
+  <!-- Have the user choose what column to use -->
+  <label class="dropdown-label">Choose a column to work with:</label>
+
+  <select class="dropdown" name="selected_column" onchange="this.form.submit()">
+    {% for col in cols %}
+    <option value="{{ col }}">{{ col }}</option>
+    {% endfor %}
+  </select>
+</form>
+<!-- If the selected column is numeric -->
+{% if text == False %}
+<form method="POST" action="/where_query">
+  <!-- Include the previously selected column as a hidden input -->
+  <label class="dropdown-label-comp">Choose any filters:</label>
+  <select
+    class="dropdown-comp"
+    name="selected_comp"
+    onchange="this.form.submit()"
+  >
+    {% for comp in comps %}
+    <option value="{{ comp }}">{{ comp }}</option>
+    {% endfor %}
+  </select>
+  <!-- TODO: Get the user's input (check for numeric) -->
+</form>
+{% endif %}
+<!-- If the selected column is a TEXT column -->
+{% if text == True %}
+<form method="POST" action="/where_query">
+  <!-- Include the previously selected column as a hidden input -->
+  <label class="dropdown-label-comp">Choose any filters:</label>
+  <select
+    class="dropdown-comp"
+    name="selected_t_comp"
+    onchange="this.form.submit()"
+  >
+    {% for comp in t_comps %}
+    <option value="{{ comp }}">{{ comp }}</option>
+    {% endfor %}
+  </select>
+  <!-- TODO: Get the user's input (check for text) -->
+</form>
+{% endif %} {% endblock %}
