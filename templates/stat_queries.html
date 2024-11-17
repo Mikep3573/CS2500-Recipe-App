@@ -6,25 +6,40 @@
 <!-- Start of content definition -->
 {% block content %}
 
-<!-- Have the user choose what numerical column to use -->
-<label for="cars" class="dropdown-label">Choose a column to work with:</label>
+<form method="POST" action="/stat_choice">
+  <!-- Have the user choose what numerical column to use -->
+  <label class="dropdown-label">Choose a column to work with:</label>
 
-<select name="num-cols" id="num-cols" class="dropdown">
-  <option>Col 1</option>
-  <option>Col 2</option>
-  <option>Col 3</option>
-  <option>Col 4</option>
-</select>
+  <select class="dropdown" , name="selected_column">
+    {% for col in cols %}
+    <option value="{{ col }}">{{ col }}</option>
+    {% endfor %}
+  </select>
+  <div class="container-buttons">
+    <!-- The menu of choices dealing with statistical queries -->
+    <ol>
+      <li>
+        <button type="submit" name="selected_agg" value="AVG">Mean</button>
+      </li>
+      <li>
+        <button type="submit" name="selected_agg" value="MIN">Minimum</button>
+      </li>
+      <li>
+        <button type="submit" name="selected_agg" value="MAX">Maximum</button>
+      </li>
+      <li>
+        <button type="submit" name="selected_agg" value="MEDIAN">Median</button>
+      </li>
+      <li>
+        <button type="submit" name="selected_agg" value="STD_DEV">
+          Standard Deviation
+        </button>
+      </li>
+    </ol>
+  </div>
+</form>
 
-<div class="container-buttons">
-  <!-- The menu of choices dealing with recipes -->
-  <ol>
-    <li><button>Mean</button></li>
-    <li><button>Minimum</button></li>
-    <li><button>Maximum</button></li>
-    <li><button>Median</button></li>
-    <li><button>Standard Deviation</button></li>
-  </ol>
-</div>
-
-{% endblock %}
+<!-- Display the result of their query -->
+{% if result != "null" %}
+<p class="result">Result:&nbsp;&nbsp;&nbsp;{{ result }}</p>
+{% endif %} {% endblock %}
