@@ -92,17 +92,45 @@ def associated_table(col: str) -> str:
 def run_where_query(col: str, table: str, op: str, val: str) -> list:
     """
     """
+
+    # Create a dictionary of additional column information to return alongside the user's request
+    additional_cols = {}
+    additional_cols['Authors'] = ['F_Name', 'L_Name']
+    additional_cols['Recipes'] = ['Recipe_Name', 'Recipe_Description']
+    additional_cols['Ingredients'] = ['Ingredient_Name', 'Ingredient_Description']
+
+    # Compile a list of columns to return
+    q_cols = []
+    if col in additional_cols[table]:
+        additional_cols[table].remove(col)
+        q_cols = [col] + additional_cols[table]
+    else:
+        q_cols = additional_cols[table] + [col]
+
     # Connect to the database
     con = sqlite3.connect(database="recipe_app.db", isolation_level=None)
     cur = con.cursor()
     
+    # Setup the query with some additional columns for more information
+    query = f"SELECT "
+    first_str = ""
+    for q_col in q_cols:
+        first_str += f"{q_col}, "
+        query += f"{q_col}, "
+    first_str = first_str[:-2]
+    query = query[:-2]  # Removing the final ,
+    query += f" FROM {table} WHERE {col} {op} ?"
+
     # Run the query and get the results
-    query = f"SELECT {col} FROM {table} WHERE {col} {op} ?"
     cur.execute(query, (val,))
     rows = cur.fetchall()
-    results = []
+    results = [first_str]
     for row in rows:
-        results.append(row[0])
+        row_str = ""
+        for i in range(len(row)):
+            row_str += f"{row[i]}, "
+        row_str = row_str[:-2]
+        results.append(row_str)
 
     # Close connection
     con.close()

@@ -5,6 +5,7 @@
 
 <!-- Start of content definition -->
 {% block content %}
+
 <!-- Let the user pick from a dropdown and give associated where clause -->
 <form method="POST" action="/where_query">
   <!-- Have the user choose what column to use -->
@@ -16,6 +17,7 @@
     {% endfor %}
   </select>
 </form>
+
 <!-- If the selected column is numeric -->
 {% if text == False %}
 <form method="POST" action="/where_query">
@@ -26,6 +28,7 @@
     <option value="{{ comp }}">{{ comp }}</option>
     {% endfor %}
   </select>
+
   <!-- Get the user's input (check for numeric) -->
   <input
     type="text"
@@ -37,15 +40,20 @@
     <button type="submit" size="10">Submit</button>
   </div>
 </form>
+
+<!-- Display results of query-->
 {% if scroll_text and not_num == False %}
 <div class="scrollable-text">
   {% for text in scroll_text %}
-  <p>{{ text }}</p>
+  <p style="margin-bottom: 20px">{{ text }}</p>
   {% endfor %}
 </div>
+
+<!-- Give error message if user did not input a valid number-->
 {% endif %} {% if not_num == True %}
 <p class="invalid-num">Invalid Text, Please Submit Again</p>
 {% endif %} {% endif %}
+
 <!-- If the selected column is a TEXT column -->
 {% if text == True %}
 <form method="POST" action="/where_query">
@@ -56,6 +64,7 @@
     <option value="{{ comp }}">{{ comp }}</option>
     {% endfor %}
   </select>
+
   <!-- Get the user's input (no need to check for correct value, text could technically be anything )-->
   <input
     type="text"
@@ -67,10 +76,12 @@
     <button type="submit" size="10">Submit</button>
   </div>
 </form>
+
+<!-- Display results of query-->
 {% if scroll_text%}
 <div class="scrollable-text">
   {% for text in scroll_text %}
-  <p>{{ text }}</p>
+  <p style="margin-bottom: 20px">{{ text }}</p>
   {% endfor %}
 </div>
 {% endif %} {% endif %} {% endblock %}
