@@ -21,32 +21,56 @@
 <form method="POST" action="/where_query">
   <!-- Include the previously selected column as a hidden input -->
   <label class="dropdown-label-comp">Choose any filters:</label>
-  <select
-    class="dropdown-comp"
-    name="selected_comp"
-    onchange="this.form.submit()"
-  >
+  <select class="dropdown-comp" name="selected_comp">
     {% for comp in comps %}
     <option value="{{ comp }}">{{ comp }}</option>
     {% endfor %}
   </select>
-  <!-- TODO: Get the user's input (check for numeric) -->
+  <!-- Get the user's input (check for numeric) -->
+  <input
+    type="text"
+    class="rec-input"
+    name="num-val"
+    placeholder="value to check against"
+  />
+  <div class="container-buttons">
+    <button type="submit" size="10">Submit</button>
+  </div>
 </form>
+{% endif %}{% if scroll_text and not_num == False %}
+<div class="scrollable-text">
+  {% for text in scroll_text %}
+  <p>{{ text }}</p>
+  {% endfor %}
+</div>
+{% endif %} {% if not_num == True %}
+<p class="invalid-num">Invalid Text, Please Submit Again</p>
 {% endif %}
 <!-- If the selected column is a TEXT column -->
 {% if text == True %}
 <form method="POST" action="/where_query">
   <!-- Include the previously selected column as a hidden input -->
   <label class="dropdown-label-comp">Choose any filters:</label>
-  <select
-    class="dropdown-comp"
-    name="selected_t_comp"
-    onchange="this.form.submit()"
-  >
+  <select class="dropdown-comp" name="selected_t_comp">
     {% for comp in t_comps %}
     <option value="{{ comp }}">{{ comp }}</option>
     {% endfor %}
   </select>
-  <!-- TODO: Get the user's input (check for text) -->
+  <!-- Get the user's input (no need to check for correct value, text could technically be anything )-->
+  <input
+    type="text"
+    class="rec-input"
+    name="text-val"
+    placeholder="value to check against"
+  />
+  <div class="container-buttons">
+    <button type="submit" size="10">Submit</button>
+  </div>
 </form>
+{% endif %} {% if scroll_text %}
+<div class="scrollable-text">
+  {% for text in scroll_text %}
+  <p>{{ text }}</p>
+  {% endfor %}
+</div>
 {% endif %} {% endblock %}

@@ -40,24 +40,42 @@ def recipes_where():
 
 @app.route("/where_query", methods=['POST', 'GET'])
 def where_query():
+    """
+    """
     # Get selected column and setup the session
     selected_col = request.form.get('selected_column')
     selected_comp = request.form.get('selected_comp')
     selected_t_comp = request.form.get('selected_t_comp')
+    text_val = request.form.get('text-val')
+    num_val = request.form.get("num-val")
+
+    # This is to store the user's values between calls to this function
+    # Because all of these are local variables and because the form updates as the user inputs more
+    # information, we call this function many times therefore losing the values in each iteration.
+    # We thus store them in the session dictionary (as defined by Flask) to keep continuity
+    if selected_col:
+        session['selected_col'] = selected_col
+    if selected_comp:
+        session['selected_comp'] = selected_comp
+    if selected_t_comp:
+        session['selected_t_comp'] = selected_t_comp
+    if text_val:
+        session['text_val'] = text_val
+    if num_val:
+        session['num_val'] = num_val
     if 'cols' not in session.keys():
         session['cols'] = [col[0] for col in get_all_cols()]
     if 'comps' not in session.keys():
         session['comps'] = ['=', '!=', '>', '>=', '<', '<=']
     if 't_comps' not in session.keys():
         session['t_comps'] = ['=', '!=']
-    print(selected_col, selected_comp, selected_t_comp)
 
     # Check if the column is text or numeric
     if not selected_comp and not selected_t_comp:
         text_cols = [col[0] for col in get_text_cols()]
         session['text'] = selected_col in text_cols
 
-    # Update the list of columns
+    # Update the list of columns if the user selected a column
     if selected_col:
         cols = [col[0] for col in get_all_cols()]
         cols.remove(selected_col)
@@ -66,7 +84,8 @@ def where_query():
         # Save the updated list to session
         session['cols'] = cols
     
-    # Update the list of comparison operators (numeric)
+    # Update the list of comparison operators
+    # if the user selected a numeric comparison operator
     if selected_comp:
         comps = ['=', '!=', '>', '>=', '<', '<=']
         comps.remove(selected_comp)
@@ -75,7 +94,8 @@ def where_query():
         # Save the updated list to session
         session['comps'] = comps
 
-    # Update the list of comparison operators (text)
+    # Update the list of comparison operators
+    # if the user selected a text comparison operator
     if selected_t_comp:
         t_comps = ['=', '!=']
         t_comps.remove(selected_t_comp)
@@ -84,11 +104,40 @@ def where_query():
         # Save the updated list to session
         session['t_comps'] = t_comps
 
-    return render_template("recipes_where.html", 
-                           cols=session['cols'], 
-                           text=session['text'], 
-                           comps=session['comps'], 
-                           t_comps=session['t_comps'])
+    # Check if num_val is numeric
+    not_num = False
+    if num_val != None:
+        not_num = False
+        try:
+            not_num = int(num_val)
+        except ValueError:
+            not_num = True
+
+    # If the user gave a value for the where clause, run the query and return the results
+    q_result = []
+    if text_val or (num_val and not not_num):
+        table = associated_table(session['selected_col'])
+        assert table  # To check that the function picked a table and didn't return an empty string
+        if text_val:  # Use the text operator and text value
+            q_result = run_where_query(col=session['selected_col'], 
+                                       table=table, 
+                                       op=session['selected_t_comp'], 
+                                       val=text_val)
+        else:
+            q_result = run_where_query(col=session['selected_col'], 
+                            table=table, 
+                            op=session['selected_comp'], 
+                            val=num_val)
+
+
+
+    return render_template("recipes_where.html",
+                           cols=session['cols'],
+                           text=session['text'],
+                           comps=session['comps'],
+                           t_comps=session['t_comps'],
+                           scroll_text=q_result,
+                           not_num=not_num)
 
 @app.route("/recipes_edit")
 def edit_recipes():
