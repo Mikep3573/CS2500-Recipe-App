@@ -31,10 +31,31 @@ def recipes():
     """
     return render_template("recipes.html")
 
+@app.route("/recipes_authors")
+def recipes_authors():
+    """
+    """
+    scroll_text = recipe_authors_query()
+    return render_template("recipes_authors.html", scroll_text=scroll_text)
+
+@app.route("/recipes_ingreds")
+def recipes_ingreds():
+    """
+    """
+    return render_template("recipes_ingreds.html")
+
+@app.route("/recipes_full")
+def recipes_full():
+    """
+    """
+    return render_template("recipes_full.html")
+
 @app.route("/recipes_where")
 def recipes_where():
     """
     """
+
+    # Get a list of all the columns available
     cols = [col[0] for col in get_all_cols()]
     return render_template("recipes_where.html", cols=cols)
 
@@ -42,6 +63,7 @@ def recipes_where():
 def where_query():
     """
     """
+
     # Get selected column and setup the session
     selected_col = request.form.get('selected_column')
     selected_comp = request.form.get('selected_comp')
@@ -160,6 +182,9 @@ def stat_queries():
 
 @app.route("/stat_choice", methods=['POST'])
 def stat_choice():
+    """
+    """
+
     # Get the selected column and aggregate function
     selected_col = request.form.get('selected_column')
     selected_agg = request.form.get('selected_agg')

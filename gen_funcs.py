@@ -137,3 +137,44 @@ def run_where_query(col: str, table: str, op: str, val: str) -> list:
 
     # Return the results
     return results
+
+def recipe_authors_query() -> list:
+    """
+    """
+
+    # Create connection
+    con = sqlite3.connect("recipe_app.db", isolation_level=None)
+    cur = con.cursor()
+
+    # Create a list of column names to use
+    cols = ["Recipe_Name", "Created", "Recipe_Avg_Cost", "Rating", "Difficulty", \
+            "Calories", "F_Name", "L_Name", "City", "Age"]
+
+    # Create query
+    query = "SELECT"
+    col_str = ""  # For the return list later on
+    for col in cols:
+        query += f" {col},"
+        col_str += f"{col}, "
+    query = query[:-1]
+    col_str = col_str[:-2]
+    query += " FROM Recipes NATURAL JOIN Authors" 
+
+    # Run query
+    cur.execute(query)
+    rows = cur.fetchall()
+
+    # Create a list of strings to return
+    results = [col_str]
+    for row in rows:
+        row_str = ""
+        for i in range(len(row)):
+            row_str += f"{row[i]}, "
+        row_str = row_str[:-2]
+        results.append(row_str)
+    
+    # Close connection
+    con.close()
+
+    # Return the list of results
+    return results
