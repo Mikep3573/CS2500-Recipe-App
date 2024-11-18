@@ -42,13 +42,15 @@ def recipes_authors():
 def recipes_ingreds():
     """
     """
-    return render_template("recipes_ingreds.html")
+    scroll_text = recipe_ingreds_query()
+    return render_template("recipes_ingreds.html", scroll_text=scroll_text)
 
 @app.route("/recipes_full")
 def recipes_full():
     """
     """
-    return render_template("recipes_full.html")
+    scroll_text = recipes_full_query()
+    return render_template("recipes_full.html", scroll_text=scroll_text)
 
 @app.route("/recipes_where")
 def recipes_where():
