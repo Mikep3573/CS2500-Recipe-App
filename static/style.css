@@ -87,7 +87,7 @@ body {
   border: none;
   background-color: rgba(218, 165, 32, 0.7);
   color: #fff;
-  padding: 15px 32px;
+  padding: 10px 22px;
   text-decoration: none;
   font-size: 24px;
   display: inline-block;
@@ -98,7 +98,7 @@ body {
 
 .dropdown-label {
   position: absolute;
-  top: 25%;
+  top: 20%;
   left: 30%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -108,7 +108,7 @@ body {
 
 .dropdown {
   position: absolute;
-  top: 25%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -130,7 +130,7 @@ body {
 
 .dropdown-label-comp {
   position: absolute;
-  top: 29%;
+  top: 26%;
   left: 30%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -140,7 +140,7 @@ body {
 
 .dropdown-comp {
   position: absolute;
-  top: 29%;
+  top: 26%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
