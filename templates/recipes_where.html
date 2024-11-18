@@ -37,7 +37,7 @@
     <button type="submit" size="10">Submit</button>
   </div>
 </form>
-{% endif %}{% if scroll_text and not_num == False %}
+{% if scroll_text and not_num == False %}
 <div class="scrollable-text">
   {% for text in scroll_text %}
   <p>{{ text }}</p>
@@ -45,7 +45,7 @@
 </div>
 {% endif %} {% if not_num == True %}
 <p class="invalid-num">Invalid Text, Please Submit Again</p>
-{% endif %}
+{% endif %} {% endif %}
 <!-- If the selected column is a TEXT column -->
 {% if text == True %}
 <form method="POST" action="/where_query">
@@ -67,10 +67,10 @@
     <button type="submit" size="10">Submit</button>
   </div>
 </form>
-{% endif %} {% if scroll_text %}
+{% if scroll_text%}
 <div class="scrollable-text">
   {% for text in scroll_text %}
   <p>{{ text }}</p>
   {% endfor %}
 </div>
-{% endif %} {% endblock %}
+{% endif %} {% endif %} {% endblock %}

@@ -106,10 +106,10 @@ def where_query():
 
     # Check if num_val is numeric
     not_num = False
-    if num_val != None:
+    if num_val is not None:
         not_num = False
         try:
-            not_num = int(num_val)
+            num_val = int(num_val)
         except ValueError:
             not_num = True
 
@@ -125,11 +125,9 @@ def where_query():
                                        val=text_val)
         else:
             q_result = run_where_query(col=session['selected_col'], 
-                            table=table, 
-                            op=session['selected_comp'], 
-                            val=num_val)
-
-
+                                       table=table, 
+                                       op=session['selected_comp'], 
+                                       val=num_val)
 
     return render_template("recipes_where.html",
                            cols=session['cols'],
