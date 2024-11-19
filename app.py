@@ -165,12 +165,19 @@ def where_query():
 def edit_recipes():
     """
     """
+    # TODO: Make sure the user can't modify a primary key
+    # TODO: Make sure the user can only remove a recipe (not author or ingredient)
+    # TODO: When the user removes a recipe, also remove any instances of it from the junction table
+    # TODO: Let the user pick from available ingredients and authors when creating a new recipe (and update   #       the junction table accordingly)
     return render_template("recipes_edit.html")
 
 @app.route("/stats")
 def stats():
     """
     """
+    # TODO: Author vs. Average Recipe Rating should be a scatterplot
+    # TODO: Recipe Rating Distribution should be a bar chart (rating is technically a categorical variable)
+    # TODO: Calories by Difficulty Level should be box plots (one for each difficulty level)
     return render_template("stats.html")
 
 @app.route("/stat_queries")

@@ -31,9 +31,9 @@ Relationships:
 
 Functionality:
 (Change Recipes) recipe_edit.html
-	- Add a recipe (using existing authors and ingredients), author, ingredients
-	- Remove a recipe, author, ingredients
-	- Modify recipe, author, ingredients
+- Add a recipe (using existing authors and ingredients), author, ingredients
+- Remove a recipe, author, ingredients
+- Modify recipe, author, ingredients
 
 (View Recipes) recipes.html:
 	- List Recipe and associated author or Recipe and associated ingredients (JOIN requirement)
