@@ -350,3 +350,6 @@ def get_ingredients() -> list:
     con.close()
 
     return ingreds
+
+def issue_error(subject: str) -> str:
+    return f"Whoops! You forgot {subject}. Please submit again"

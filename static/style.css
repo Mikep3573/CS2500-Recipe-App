@@ -198,13 +198,14 @@ body {
   color: #fff;
 }
 
-.invalid-num {
+.invalid {
   position: absolute;
   top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: red;
+  font-size: 18px;
+  color: #fff;
 }
 
 .input-container {
@@ -245,7 +246,7 @@ body {
 }
 
 /* These are for styling the ingredients list when adding a recipe */
-.dropdown-label-ingred {
+.checkbox-label-ingred {
   position: absolute;
   top: 26%;
   left: 75%;
@@ -255,17 +256,17 @@ body {
   font-size: 18px;
 }
 
-.dropdown-ingred {
+.checkbox-ingred {
   position: absolute;
-  top: 55%;
+  top: 53%;
   left: 75%;
   transform: translate(-50%, -50%);
-  text-align: center;
+  text-align: left;
   color: #fff;
   background-color: rgba(218, 165, 32, 0.7);
-  height: 250px;
   border-radius: 15px;
   padding: 5px;
+  border: 1px solid;
   border-color: #fff;
 }
 
@@ -291,4 +292,15 @@ body {
   border-radius: 15px;
   padding: 5px;
   border-color: #fff;
+}
+
+/* Styling for a successful recipe addition message */
+.successful-submission {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
 }

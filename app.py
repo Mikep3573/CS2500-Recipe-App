@@ -170,19 +170,61 @@ def edit_recipes():
     # TODO: When the user removes a recipe, also remove any instances of it from the junction table
     return render_template("recipes_edit.html")
 
-@app.route("/add_recipe", methods=["POST", "GET"])
+@app.route("/add_recipe")
 def add_recipe():
     """
     """
     # TODO: Let the user pick from available ingredients and authors when creating a new recipe (and update   #       the junction table accordingly)
     # Get the columns, author, and ingredients list to display to the user
-    cols = ["Name", "Description", "Average Cost", "Rating", "Difficulty", "Calories"]
+    cols = ["Name", "Description", "Average Cost", "Rating (1-5)", "Difficulty (1-5)", "Calories"]
     authors = get_authors()
-    author_strs = [f"{author[1]} {author[2]}" for author in authors]
     ingreds = get_ingredients()
-    ingred_strs = [ingred[1] for ingred in ingreds]
 
-    print(request.form.get('ingreds'))
+    return render_template("add_recipe.html", cols=cols, authors=authors, ingreds=ingreds)
+
+@app.route("/add_submission", methods=["Post"])
+def add_submission():
+    """
+    """
+
+    # Get the user's input
+    forgot = False
+    added = False
+    message = ""
+    # Author ID
+    a_id = request.form.get("author")
+
+    # Column values
+    name = request.form.get("Name")
+    if not name:
+        message = issue_error("name")
+        forgot = True
+    desc = request.form.get("Description")
+    if not desc:
+        message = issue_error("description")
+        forgot = True
+    avg_cost = request.form.get("Average Cost")
+    if not avg_cost:
+        message = issue_error("average cost")
+        forgot = True
+    rating = request.form.get("Rating (1-5)")
+    if not rating:
+        message = issue_error("rating")
+        forgot = True
+    diff = request.form.get("Difficulty (1-5)")
+    if not diff:
+        message = issue_error("difficulty")
+        forgot = True
+    cal = request.form.get("Calories")
+    if not cal:
+        message = issue_error("calories")
+        forgot = True
+
+    # Ingredients
+    ingred_ids = request.form.getlist("ingreds")
+    if not ingred_ids:
+        message = issue_error("ingredients")
+        forgot = True
 
     # Get the next available R_ID
     r_id = get_R_ID()
@@ -190,10 +232,30 @@ def add_recipe():
     # Get today's date
     created = get_date()
 
-    # Get the Author's A_ID
-    # Fill in Recipes row
-    # Update the junction table with selected ingredients
-    return render_template("add_recipe.html", cols=cols, authors=author_strs, ingreds=ingred_strs)
+    # Get the Recipes query
+    if not forgot:
+        q_rec = "INSERT INTO Recipes (R_ID, A_ID, Recipe_Name, Recipe_Description, Created, Recipe_Avg_Cost, Rating, Difficulty, Calories) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+
+        # Get the RecipeIngredients query
+        q_rec_ing = "INSERT INTO RecipeIngredients ('R_ID', 'I_ID') VALUES (?, ?)"
+
+        # Open connection to database
+        con = sqlite3.connect("recipe_app.db")
+        cur = con.cursor()
+
+        # Insert values into the Recipes table
+        cur.execute(q_rec, (r_id, a_id, name, desc, created, avg_cost, rating, diff, cal))
+
+        # Insert values into the junction table
+        for ingred_id in ingred_ids:
+            cur.execute(q_rec_ing, (r_id, ingred_id))
+
+        # Commit and close connection to database
+        con.commit()
+        con.close()
+        added = True
+
+    return render_template("index.html", added=added, error_message=message)
 
 @app.route("/stats")
 def stats():

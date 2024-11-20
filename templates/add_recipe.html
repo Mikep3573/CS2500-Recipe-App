@@ -5,7 +5,7 @@
 
 <!-- Start of content definition -->
 {% block content %}
-<form method="POST" action="/add_recipe">
+<form method="POST" action="/add_submission">
   <!-- List columns to edit (Name, Description, Avg_Cost, Difficulty, Calories) -->
   <div class="input-container">
     <ul style="list-style-type: none; padding: 0">
@@ -22,17 +22,22 @@
   <label class="dropdown-label-author">Choose an author for the recipe: </label>
   <select class="dropdown-author" name="author">
     {% for author in authors %}
-    <option value="{{ author }}">{{ author }}</option>
+    <option value="{{ author[0] }}">{{ author[1] }} {{ author[2] }}</option>
     {% endfor %}
   </select>
 
   <!-- List Ingredients they can use -->
-  <label class="dropdown-label-ingred">Choose ingredients for the recipe:</label>
-  <select class="dropdown-ingred" name="ingreds" multiple>
+  <label class="checkbox-label-ingred"
+    >Choose ingredients for the recipe:</label
+  >
+  <div class="checkbox-ingred">
     {% for ingred in ingreds %}
-    <option value="{{ ingred }}">{{ ingred }}</option>
+    <div>
+      <input type="checkbox" name="ingreds" value="{{ ingred[0] }}" />
+      <label>{{ ingred[1] }}</label>
+    </div>
     {% endfor %}
-  </select>
+  </div>
 
   <!-- Add a submit button -->
   <div class="submit-button" height="80%">

@@ -2,4 +2,10 @@
 {% extends 'base.html' %}
 
 <!-- Define the content of the page -->
-{% block content %} {% endblock %}
+{% block content %}
+<!-- The user will get a message on this page if the submission of a recipe went through -->
+{% if added == True %}
+<p class="successful-submission">Submitted!</p>
+{% else %}
+<p class="invalid">{{ error_message }}</p>
+{% endif %} {% endblock %}
