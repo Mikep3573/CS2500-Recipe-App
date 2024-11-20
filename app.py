@@ -168,8 +168,32 @@ def edit_recipes():
     # TODO: Make sure the user can't modify a primary key
     # TODO: Make sure the user can only remove a recipe (not author or ingredient)
     # TODO: When the user removes a recipe, also remove any instances of it from the junction table
-    # TODO: Let the user pick from available ingredients and authors when creating a new recipe (and update   #       the junction table accordingly)
     return render_template("recipes_edit.html")
+
+@app.route("/add_recipe", methods=["POST"])
+def add_recipe():
+    """
+    """
+    # TODO: Let the user pick from available ingredients and authors when creating a new recipe (and update   #       the junction table accordingly)
+    # Get the columns, author, and ingredients list to display to the user
+    cols = ["Name", "Description", "Average Cost", "Rating", "Difficulty", "Calories"]
+    authors = get_authors()
+    author_strs = [f"{author[1]} {author[2]}" for author in authors]
+    ingreds = get_ingredients()
+    ingred_strs = [ingred[1] for ingred in ingreds]
+
+    print(request.form.get('ingreds'))
+
+    # Get the next available R_ID
+    r_id = get_R_ID()
+
+    # Get today's date
+    created = get_date()
+
+    # Get the Author's A_ID
+    # Fill in Recipes row
+    # Update the junction table with selected ingredients
+    return render_template("add_recipe.html", cols=cols, authors=author_strs, ingreds=ingred_strs)
 
 @app.route("/stats")
 def stats():

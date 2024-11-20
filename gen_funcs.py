@@ -6,6 +6,7 @@ Date:
 
 # Dependencies
 import sqlite3
+import datetime
 
 def get_numeric_cols() -> list:
     """
@@ -266,3 +267,86 @@ def recipes_full_query() -> list:
 
     # Return the list of results
     return results
+
+def get_R_ID() -> str:
+    """
+    """
+    
+    # Connect to database
+    con = sqlite3.connect("recipe_app.db", isolation_level=None)
+    cur = con.cursor()
+
+    # Setup query
+    query = "SELECT R_ID FROM Recipes ORDER BY R_ID"
+
+    # Run query
+    rows = cur.execute(query)
+    ids = []
+    for row in rows:
+        ids.append(int(row[0]))
+
+    # Close the connection
+    con.close()
+
+    # Return highets R_ID + 1
+    max_id = max(ids)
+    return str(max_id + 1)
+
+def get_date() -> str:
+    """
+    Takes today's date and converts it into the date format present in the database.
+
+    Arguments:
+    n/a
+
+    Return:
+    Today's date in the correct format
+    """
+    # Get the current date
+    today = datetime.date.today()
+    year = today.year
+    month = today.month
+    day = today.day
+    return f"{month}/{day}/{year}"
+
+def get_authors() -> list:
+    """
+    """
+    # Connect to database
+    con = sqlite3.connect("recipe_app.db", isolation_level=None)
+    cur = con.cursor()
+
+    # Setup query
+    query = "SELECT A_ID, F_Name, L_Name FROM Authors"
+
+    # Run query
+    rows = cur.execute(query)
+    authors = []
+    for row in rows:
+        authors.append([row[0], row[1], row[2]])
+
+    # Close the connection
+    con.close()
+
+    return authors
+
+def get_ingredients() -> list:
+    """
+    """
+    # Connect to database
+    con = sqlite3.connect("recipe_app.db", isolation_level=None)
+    cur = con.cursor()
+
+    # Setup query
+    query = "SELECT I_ID, Ingredient_Name FROM Ingredients"
+
+    # Run query
+    rows = cur.execute(query)
+    ingreds = []
+    for row in rows:
+        ingreds.append([row[0], row[1]])
+
+    # Close the connection
+    con.close()
+
+    return ingreds
