@@ -170,7 +170,7 @@ def edit_recipes():
     # TODO: When the user removes a recipe, also remove any instances of it from the junction table
     return render_template("recipes_edit.html")
 
-@app.route("/add_recipe", methods=["POST"])
+@app.route("/add_recipe", methods=["POST", "GET"])
 def add_recipe():
     """
     """

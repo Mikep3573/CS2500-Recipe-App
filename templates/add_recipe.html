@@ -19,16 +19,16 @@
   </div>
 
   <!-- List Authors to attribute it to -->
-  <label class="dropdown-label">Choose an author for the recipe: </label>
-  <select class="dropdown" name="author">
+  <label class="dropdown-label-author">Choose an author for the recipe: </label>
+  <select class="dropdown-author" name="author">
     {% for author in authors %}
     <option value="{{ author }}">{{ author }}</option>
     {% endfor %}
   </select>
 
   <!-- List Ingredients they can use -->
-  <label class="dropdown-label-comp">Choose any filters:</label>
-  <select class="dropdown-comp" name="ingreds" multiple>
+  <label class="dropdown-label-ingred">Choose any filters:</label>
+  <select class="dropdown-ingred" name="ingreds" multiple>
     {% for ingred in ingreds %}
     <option value="{{ ingred }}">{{ ingred }}</option>
     {% endfor %}

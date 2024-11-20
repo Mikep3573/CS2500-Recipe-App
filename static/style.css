@@ -215,7 +215,7 @@ body {
   text-align: center;
   background-color: rgba(218, 165, 32, 0.7);
   border-radius: 15px;
-  padding: 30px;
+  padding: 20px;
   color: #fff;
   font-size: 18px;
 }
@@ -229,7 +229,7 @@ body {
 
 .submit-button button {
   position: absolute;
-  top: 75%;
+  top: 92%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: none;
@@ -242,4 +242,28 @@ body {
   text-align: center;
   border-radius: 15px;
   margin-bottom: 10px;
+}
+
+.dropdown-label-ingred {
+  position: absolute;
+  top: 26%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+}
+
+.dropdown-ingred {
+  position: absolute;
+  top: 55%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  background-color: rgba(218, 165, 32, 0.7);
+  height: 250px;
+  border-radius: 15px;
+  padding: 5px;
+  border-color: #fff;
 }
