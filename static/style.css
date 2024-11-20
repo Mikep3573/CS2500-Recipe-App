@@ -244,6 +244,7 @@ body {
   margin-bottom: 10px;
 }
 
+/* These are for styling the ingredients list when adding a recipe */
 .dropdown-label-ingred {
   position: absolute;
   top: 26%;
@@ -263,6 +264,30 @@ body {
   color: #fff;
   background-color: rgba(218, 165, 32, 0.7);
   height: 250px;
+  border-radius: 15px;
+  padding: 5px;
+  border-color: #fff;
+}
+
+/* Styling the authors list when adding a recipe */
+.dropdown-label-author {
+  position: absolute;
+  top: 26%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+}
+
+.dropdown-author {
+  position: absolute;
+  top: 40%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  background-color: rgba(218, 165, 32, 0.7);
   border-radius: 15px;
   padding: 5px;
   border-color: #fff;
