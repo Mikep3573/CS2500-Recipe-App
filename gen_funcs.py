@@ -268,7 +268,7 @@ def recipes_full_query() -> list:
     # Return the list of results
     return results
 
-def get_R_ID() -> str:
+def get_next_ID(in_id: str, table: str) -> str:
     """
     """
     
@@ -277,7 +277,7 @@ def get_R_ID() -> str:
     cur = con.cursor()
 
     # Setup query
-    query = "SELECT R_ID FROM Recipes ORDER BY R_ID"
+    query = f"SELECT {in_id} FROM {table} ORDER BY {in_id}"
 
     # Run query
     rows = cur.execute(query)
@@ -288,7 +288,7 @@ def get_R_ID() -> str:
     # Close the connection
     con.close()
 
-    # Return highets R_ID + 1
+    # Return highest *_ID + 1
     max_id = max(ids)
     return str(max_id + 1)
 

@@ -165,16 +165,16 @@ def where_query():
 def edit_recipes():
     """
     """
-    # TODO: Make sure the user can't modify a primary key
-    # TODO: Make sure the user can only remove a recipe (not author or ingredient)
-    # TODO: When the user removes a recipe, also remove any instances of it from the junction table
+    # TODO: Just Removing a row (give them a dropdown list for names of recipe, author, or ingredient)
+            # Make sure to remove ingredient id from RecipeIngredients
+            # If removing Author, make sure to remove all recipes the author wrote (maybe issue a message this will happen)
+    # TODO: Modifying anything should be fine, they just can't modify an _ID column (just give them the same drop down like in Filter Recipes)
     return render_template("recipes_edit.html")
 
 @app.route("/add_recipe")
 def add_recipe():
     """
     """
-    # TODO: Let the user pick from available ingredients and authors when creating a new recipe (and update   #       the junction table accordingly)
     # Get the columns, author, and ingredients list to display to the user
     cols = ["Name", "Description", "Average Cost", "Rating (1-5)", "Difficulty (1-5)", "Calories"]
     authors = get_authors()
@@ -182,14 +182,13 @@ def add_recipe():
 
     return render_template("add_recipe.html", cols=cols, authors=authors, ingreds=ingreds)
 
-@app.route("/add_submission", methods=["Post"])
-def add_submission():
+@app.route("/add_rec_submission", methods=["Post"])
+def add_rec_submission():
     """
     """
 
     # Get the user's input
     forgot = False
-    added = False
     message = ""
     # Author ID
     a_id = request.form.get("author")
@@ -226,14 +225,13 @@ def add_submission():
         message = issue_error("ingredients")
         forgot = True
 
-    # Get the next available R_ID
-    r_id = get_R_ID()
-
-    # Get today's date
-    created = get_date()
-
-    # Get the Recipes query
+    # If nothing was forgotten, create the query
     if not forgot:
+        # Get the next available R_ID
+        r_id = get_next_ID("R_ID", "Recipes")
+
+        # Get today's date
+        created = get_date()
         q_rec = "INSERT INTO Recipes (R_ID, A_ID, Recipe_Name, Recipe_Description, Created, Recipe_Avg_Cost, Rating, Difficulty, Calories) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
         # Get the RecipeIngredients query
@@ -253,9 +251,112 @@ def add_submission():
         # Commit and close connection to database
         con.commit()
         con.close()
-        added = True
 
-    return render_template("index.html", added=added, error_message=message)
+    return render_template("index.html", forgot=forgot, error_message=message)
+
+@app.route("/add_author")
+def add_author():
+    """
+    """
+    # Get the columns to change
+    cols = ["First Name", "Last Name", "City", "Age"]
+    return render_template("add_author.html", cols=cols)
+
+@app.route("/add_auth_submission", methods=["Post"])
+def add_auth_submission():
+    """
+    """
+    # Get the user's inputs
+    forgot = False
+    message = ""
+    f_name = request.form.get("First Name")
+    if not f_name:
+        message = issue_error("first name")
+        forgot = True
+    l_name = request.form.get("Last Name")
+    if not l_name:
+        message = issue_error("last name")
+        forgot = True
+    city = request.form.get("City")
+    if not city:
+        message = issue_error("city")
+        forgot = True
+    age = request.form.get("Age")
+    if not age:
+        message = issue_error("age")
+        forgot = True
+
+    # If nothing was forgotten, create the query
+    if not forgot:
+        # Get the next available A_ID
+        a_id = get_next_ID("A_ID", "Authors")
+
+        # Open the connection
+        con = sqlite3.connect("recipe_app.db", isolation_level=None)
+        cur = con.cursor()
+
+        # Make the Authors query
+        a_query = "INSERT INTO Authors (A_ID, F_Name, L_Name, City, Age) VALUES (?, ?, ?, ?, ?)"
+        cur.execute(a_query, (a_id, f_name, l_name, city, age))
+
+        # Close the connection
+        con.commit()
+        con.close()
+
+    # Issue a message
+    return render_template("index.html", forgot=forgot, error_message=message)
+
+@app.route("/add_ingredient")
+def add_ingredient():
+    """
+    """
+    # Get the columns to change
+    cols = ["Name", "Description", "Average Cost", "Shelf Life"]
+    return render_template("add_ingredient.html", cols=cols)
+
+@app.route("/add_ingred_submission", methods=["Post"])
+def add_ingred_submission():
+    """
+    """
+    # Get the user's inputs
+    forgot = False
+    message = ""
+    name = request.form.get("Name")
+    if not name:
+        message = issue_error("name")
+        forgot = True
+    desc = request.form.get("Description")
+    if not desc:
+        message = issue_error("description")
+        forgot = True
+    avg_cost = request.form.get("Average Cost")
+    if not avg_cost:
+        message = issue_error("average cost")
+        forgot = True
+    shelf_life = request.form.get("Shelf Life")
+    if not shelf_life:
+        message = issue_error("shelf life")
+        forgot = True
+
+    # If nothing was forgotten, create the query
+    if not forgot:
+        # Get the next available A_ID
+        i_id = get_next_ID("I_ID", "Ingredients")
+
+        # Open the connection
+        con = sqlite3.connect("recipe_app.db", isolation_level=None)
+        cur = con.cursor()
+
+        # Make the Authors query
+        a_query = "INSERT INTO Ingredients (I_ID, Ingredient_Name, Ingredient_Description, Ingredient_Avg_Cost, Ingredient_Shelf_Life) VALUES (?, ?, ?, ?, ?)"
+        cur.execute(a_query, (i_id, name, desc, avg_cost, shelf_life))
+
+        # Close the connection
+        con.commit()
+        con.close()
+
+    # Issue a message
+    return render_template("index.html", forgot=forgot, error_message=message)
 
 @app.route("/stats")
 def stats():
