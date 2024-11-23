@@ -1,10 +1,11 @@
+<!-- File represents the Recipes and their Authors page of the website -->
 {% extends 'base.html' %}
 
 <!-- Set the title of the page -->
 {% block title %}Your Recipes{% endblock %}
 
 <!-- Start of content definition -->
-{% block content %} 
+{% block content %}
 <div class="scrollable-text-center">
   {% for text in scroll_text %}
   <p style="margin-bottom: 20px">{{ text }}</p>

@@ -1,3 +1,4 @@
+/* Sets up the general styling all elements will use */
 * {
   margin: 0;
   padding: 0;
@@ -5,6 +6,7 @@
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
+/* Sets up the general styling all body elements will use */
 body {
   min-height: 100vh;
   background: url("background.png") no-repeat;
@@ -12,6 +14,7 @@ body {
   background-position: center;
 }
 
+/* Sets up part of the styling used in the navbar */
 .header {
   position: fixed;
   top: 0;
@@ -25,6 +28,7 @@ body {
   z-index: 100;
 }
 
+/* Sets up part of the styling used in the the name/logo of the website (top-left) */
 .title {
   font-size: 32px;
   color: #fff;
@@ -32,6 +36,7 @@ body {
   font-weight: 700;
 }
 
+/* Sets up styling for the anchor elements of the navbar (the three main submenus) */
 .navbar a {
   position: relative;
   font-size: 18px;
@@ -41,6 +46,7 @@ body {
   margin-left: 40px;
 }
 
+/* Styling used for all the submenus (particularly the ones that result from using the navbar) */
 .container {
   display: inline-block;
   position: absolute;
@@ -56,20 +62,24 @@ body {
   font-weight: 300;
 }
 
+/* Removes any styling associated with an ordered list */
 .container ol {
   list-style: none;
   padding-left: 0;
 }
 
+/* Makes the text white for the submenus */
 .container a {
   color: #fff;
   text-decoration: none;
 }
 
+/* Adds some space on the bottom of each list item */
 .container li {
   margin-bottom: 10px;
 }
 
+/* Generally same styling as the submenus but for the buttons in the Filter Recipes and the More Statistical Queries sections */
 .container-buttons {
   position: absolute;
   top: 50%;
@@ -78,11 +88,13 @@ body {
   text-align: center;
 }
 
+/* Styles list of buttons in the More Statistical Queries section */
 .container-buttons ol {
   list-style: none;
   padding-left: 0;
 }
 
+/* Styles the submit button in the Filter Recipes and More Statistical Queries sections */
 .container-buttons button {
   border: none;
   background-color: rgba(218, 165, 32, 0.7);
@@ -96,6 +108,7 @@ body {
   margin-bottom: 10px;
 }
 
+/* Styles the dropdown menu label for the filterable columns */
 .dropdown-label {
   position: absolute;
   top: 20%;
@@ -106,6 +119,7 @@ body {
   font-size: 18px;
 }
 
+/* Styles the dropdown menu for the filterable columns */
 .dropdown {
   position: absolute;
   top: 20%;
@@ -119,6 +133,7 @@ body {
   border-color: #fff;
 }
 
+/* Styles the resulting text when you add a tuple to the database (Change Recipes section) */
 .result {
   position: absolute;
   top: 75%;
@@ -128,6 +143,7 @@ body {
   font-size: 25px;
 }
 
+/* Styles the label for the dropdown menu for the comparison operators */
 .dropdown-label-comp {
   position: absolute;
   top: 26%;
@@ -138,6 +154,7 @@ body {
   font-size: 18px;
 }
 
+/* Styles the dropdown menu for the comparison operators */
 .dropdown-comp {
   position: absolute;
   top: 26%;
@@ -151,6 +168,7 @@ body {
   border-color: #fff;
 }
 
+/* Styling for the text input sections when filtering recipes */
 .rec-input {
   position: absolute;
   top: 33%;
@@ -168,6 +186,7 @@ body {
   color: #fff;
 }
 
+/* Styles the scrollable sections for the results of the Filter Recipes section */
 .scrollable-text {
   position: absolute;
   top: 75%;
@@ -183,6 +202,7 @@ body {
   color: #fff;
 }
 
+/* Styles the scrollable sections for the results of the View Recipes and their Authors, Ingredients, or both*/
 .scrollable-text-center {
   position: absolute;
   top: 55%;
@@ -198,6 +218,7 @@ body {
   color: #fff;
 }
 
+/* Styling for the text displayed when a user forgets to input something or doesn't input a number */
 .invalid {
   position: absolute;
   top: 75%;
@@ -208,6 +229,7 @@ body {
   color: #fff;
 }
 
+/* Styling for the text input sections of the Add Recipe page */
 .input-container {
   position: absolute;
   top: 50%;
@@ -228,6 +250,7 @@ body {
   padding: 5px;
 }
 
+/* Styling for the submit button in the Add Recipe page */
 .submit-button button {
   position: absolute;
   top: 92%;

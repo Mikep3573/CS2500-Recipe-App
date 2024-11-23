@@ -1,7 +1,7 @@
 """
-Description:
-Authors:
-Date:
+Description: This is the main Flask app program. It runs the app, sets up the session, and holds all the routing functions necessary for running the website.
+Authors: Michael Piscione and Walter Clay
+Date: 11/23/24
 """
 
 # Dependencies
@@ -22,48 +22,106 @@ app.secret_key = ''.join(random.choice(chars) for _ in range(rand_num))
 @app.route("/")
 def index():
     """
+    Routing function for the landing page. Just renders 'index.html'.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'index.html'
     """
+
     return render_template("index.html")
 
 @app.route("/recipes")
 def recipes():
     """
+    Routing function for View Recipes section. Just renders 'recipes.html'.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'recipes.html'
     """
+
     return render_template("recipes.html")
 
 @app.route("/recipes_authors")
 def recipes_authors():
     """
+    Routing function for the Recipes and their Authors page. Just renders 'recipes_authors.html'.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'recipes_authors.html' with a list of recipes and their authors
     """
+
+    # Get the recipes and authors from the database
     scroll_text = recipe_authors_query()
     return render_template("recipes_authors.html", scroll_text=scroll_text)
 
 @app.route("/recipes_ingreds")
 def recipes_ingreds():
     """
+    Routing function for the Recipes and their Ingredients page. Just renders 'recipes_ingreds.html'.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'recipes_ingreds.html' with a list of recipes and their ingredients
     """
+
+    # Get the recipes and their ingredients from the database
     scroll_text = recipe_ingreds_query()
     return render_template("recipes_ingreds.html", scroll_text=scroll_text)
 
 @app.route("/recipes_full")
 def recipes_full():
     """
+    Routing function for the Recipes and All Information page. Just renders 'recipes_full.html'.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'recipes_full.html' with a list of recipes, their ingredients, and their authors
     """
+
+    # Get the recipes, their authors, and their ingredients from the database
     scroll_text = recipes_full_query()
     return render_template("recipes_full.html", scroll_text=scroll_text)
 
 @app.route("/recipes_where")
 def recipes_where():
     """
+    Routing function for the Filter Recipes page. Just renders 'recipes_where.html'.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'recipes_where.html' with a list of possible columns to filter on
     """
 
-    # Get a list of all the columns available
+    # Get a list of all the columns available to filter
     cols = [col[0] for col in get_all_cols()]
     return render_template("recipes_where.html", cols=cols)
 
 @app.route("/where_query", methods=['POST', 'GET'])
 def where_query():
     """
+    Routing function for rendering the results of the user's actions when choosing what to query on.
+    Renders new prompts when the user picks a column (based on whether the column was a TEXT or numerical column). Once the user has submitted all the information necessary, it executes the query and then renders the result of the query.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'recipes_where.html' with various results based on the user's actions (as listed above).
     """
 
     # Get selected column and setup the session
@@ -164,7 +222,15 @@ def where_query():
 @app.route("/recipes_edit")
 def edit_recipes():
     """
+    Routing function for the Change Recipes page. Just renders 'recipes_edit.html'.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'recipes_edit.html'
     """
+
     # TODO: Just Removing a row (give them a dropdown list for names of recipe, author, or ingredient)
             # Make sure to remove ingredient id from RecipeIngredients
             # If removing Author, make sure to remove all recipes the author wrote (maybe issue a message this will happen)
@@ -174,7 +240,15 @@ def edit_recipes():
 @app.route("/add_recipe")
 def add_recipe():
     """
+    Routing function for the Add Recipe page. Just renders 'add_recipe.html' which is a form prompting for an author, a list of ingredients, and the rest of the information necessary to create a recipe tuple in the database.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'recipes_edit.html' with the columns, authors, and ingredients used in creating a recipe
     """
+
     # Get the columns, author, and ingredients list to display to the user
     cols = ["Name", "Description", "Average Cost", "Rating (1-5)", "Difficulty (1-5)", "Calories"]
     authors = get_authors()
@@ -185,6 +259,13 @@ def add_recipe():
 @app.route("/add_rec_submission", methods=["Post"])
 def add_rec_submission():
     """
+    Routing function for the input of Change Recipes page. Executes the required query and/or renders 'index.html' with a corresponding response for whether the query worked or the user forgot to input something.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'index.html' with a corresponding message
     """
 
     # Get the user's input
@@ -257,7 +338,15 @@ def add_rec_submission():
 @app.route("/add_author")
 def add_author():
     """
+    Routing function for the Add Author page. Just renders 'add_author.html' which is a form prompting for all information necessary to add an author tuple to the database.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'add_author.html' with the columns used in creating an author tuple
     """
+
     # Get the columns to change
     cols = ["First Name", "Last Name", "City", "Age"]
     return render_template("add_author.html", cols=cols)
@@ -265,7 +354,15 @@ def add_author():
 @app.route("/add_auth_submission", methods=["Post"])
 def add_auth_submission():
     """
+    Routing function for the input of the Add Author page. Executes the required query and/or renders 'index.html' with a corresponding response for whether the query worked or the user forgot to input something.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'index.html' with a corresponding message
     """
+
     # Get the user's inputs
     forgot = False
     message = ""
@@ -309,7 +406,15 @@ def add_auth_submission():
 @app.route("/add_ingredient")
 def add_ingredient():
     """
+    Routing function for the Add Ingredient page. Just renders 'add_ingredient.html' which is a form prompting for all information necessary to add an ingredient tuple to the database.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'add_ingredient.html' with the columns used in creating an ingredient tuple
     """
+
     # Get the columns to change
     cols = ["Name", "Description", "Average Cost", "Shelf Life"]
     return render_template("add_ingredient.html", cols=cols)
@@ -317,7 +422,15 @@ def add_ingredient():
 @app.route("/add_ingred_submission", methods=["Post"])
 def add_ingred_submission():
     """
+    Routing function for the input of the Add Ingredient page. Executes the required query and/or renders 'index.html' with a corresponding response for whether the query worked or the user forgot to input something.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'index.html' with a corresponding message
     """
+
     # Get the user's inputs
     forgot = False
     message = ""
@@ -361,7 +474,15 @@ def add_ingred_submission():
 @app.route("/stats")
 def stats():
     """
+    Routing function for Get Statistics section. Just renders 'stats.html'.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'stats.html'
     """
+
     # TODO: Author vs. Average Recipe Rating should be a scatterplot
     # TODO: Recipe Rating Distribution should be a bar chart (rating is technically a categorical variable)
     # TODO: Calories by Difficulty Level should be box plots (one for each difficulty level)
@@ -370,7 +491,15 @@ def stats():
 @app.route("/stat_queries")
 def stat_queries():
     """
+    Routing function for More Statistical Queries section. Just renders 'stat_queries.html'.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'stat_queries.html' with a list of viable numerical columns to get an aggregate statistic on
     """
+
     # Get the numerical columns in the data
     cols = [tup[0] for tup in get_numeric_cols()]
     
@@ -379,6 +508,14 @@ def stat_queries():
 @app.route("/stat_choice", methods=['POST'])
 def stat_choice():
     """
+    Routing function for the input of the More Statistical Queries section. Just renders 
+    'stat_queries.html' with the result of the chosen query.
+
+    Arguments:
+    n/a
+
+    Return:
+    A render of 'stat_queries.html' with the result of the chosen statistic.
     """
 
     # Get the selected column and aggregate function

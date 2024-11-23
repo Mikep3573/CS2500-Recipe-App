@@ -1,7 +1,7 @@
 """
-Description:
-Authors:
-Date:
+Description: Holds generic functions that handle things like checking for numbers to making queries. For use anywhere in the program.
+Authors: Michael Piscione and Walter Clay
+Date: 11/23/24
 """
 
 # Dependencies
@@ -10,7 +10,15 @@ import datetime
 
 def get_numeric_cols() -> list:
     """
+    Executes a query for the names of all the numeric columns in all three tables (ignoring the junction table)
+
+    Arguments:
+    n/a
+
+    Return:
+    list: a list of the numeric columns
     """
+
     # Connect to the databse
     con = sqlite3.connect(database="recipe_app.db", isolation_level=None)
     cur = con.cursor()
@@ -43,7 +51,15 @@ def get_numeric_cols() -> list:
 
 def get_text_cols() -> list:
     """
+    Executes a query for the names of all the text columns in all three tables (ignoring the junction table)
+
+    Arguments:
+    n/a
+
+    Return:
+    list: a list of the text columns
     """
+
     # Connect to the database
     con = sqlite3.connect(database="recipe_app.db", isolation_level=None)
     cur = con.cursor()
@@ -75,13 +91,30 @@ def get_text_cols() -> list:
 
 def get_all_cols() -> list:
     """
+    Executes a query for the names of all the columns in all three tables (ignoring the junction table)
+
+    Arguments:
+    n/a
+
+    Return:
+    list: a list of all the columns
     """
+
     # Just return a concatenated list of numeric and text columns
     return get_numeric_cols() + get_text_cols()
 
 def associated_table(col: str) -> str:
     """
+    Gets the names of the all the columns and returns the name of the table associated with an input
+    column.
+
+    Arguments:
+    col: a string representing a column to find the table for
+
+    Return:
+    str: the table the column belongs to
     """
+
     # Find all the columns and their associated tables
     # Return the associated table
     all_cols = get_all_cols()
@@ -92,6 +125,16 @@ def associated_table(col: str) -> str:
 
 def run_where_query(col: str, table: str, op: str, val: str) -> list:
     """
+    Executes a query on a given table, for a given column, with a given where operation (>, <, <=, etc) and a value.
+
+    Arguments:
+    col: The column to query against
+    tbale: The table the column is located in
+    op: the inequality operation used in the where clause
+    val: the value used in the inequality in the where clause
+
+    Return:
+    list: a list of the results of the query as strings, plus some information beyond just the requested column
     """
 
     # Create a dictionary of additional column information to return alongside the user's request
@@ -141,6 +184,13 @@ def run_where_query(col: str, table: str, op: str, val: str) -> list:
 
 def recipe_authors_query() -> list:
     """
+    Executes a query resulting in recipes and their authors.
+
+    Arguments:
+    n/a
+
+    Return:
+    list: a list of strings representing the result of the query
     """
 
     # Create connection
@@ -182,6 +232,13 @@ def recipe_authors_query() -> list:
 
 def recipe_ingreds_query() -> list:
     """
+    Executes a query resulting in recipes and their ingredients.
+
+    Arguments:
+    n/a
+
+    Return:
+    list: a list of strings representing the result of the query
     """
 
     # Create connection
@@ -224,6 +281,13 @@ def recipe_ingreds_query() -> list:
 
 def recipes_full_query() -> list:
     """
+    Executes a query resulting in recipes, their authors, and their ingredients.
+
+    Arguments:
+    n/a
+
+    Return:
+    list: a list of strings representing the result of the query
     """
 
     # Create connection
@@ -270,6 +334,14 @@ def recipes_full_query() -> list:
 
 def get_next_ID(in_id: str, table: str) -> str:
     """
+    Given a table, the name of the table's primary key column, returns the next available primary key for use.
+
+    Arguments:
+    in_id: a string representing a certain table's primary key column name
+    table: a string representing a table name
+
+    Return:
+    str: the next available primary key for use
     """
     
     # Connect to database
@@ -300,7 +372,7 @@ def get_date() -> str:
     n/a
 
     Return:
-    Today's date in the correct format
+    str: today's date in the correct format
     """
     # Get the current date
     today = datetime.date.today()
@@ -311,7 +383,15 @@ def get_date() -> str:
 
 def get_authors() -> list:
     """
+    Executes a query on the database resulting in all author's ID, first name, and last name
+
+    Arguments:
+    n/a
+
+    Return:
+    list: a 2D list of lists of strings representing the above fields for each author
     """
+
     # Connect to database
     con = sqlite3.connect("recipe_app.db", isolation_level=None)
     cur = con.cursor()
@@ -332,7 +412,15 @@ def get_authors() -> list:
 
 def get_ingredients() -> list:
     """
+    Executes a query on the database resulting in all ingredient's ID and name
+
+    Arguments:
+    n/a
+
+    Return:
+    list: a 2D list of lists of strings representing the above fields for each ingredient
     """
+
     # Connect to database
     con = sqlite3.connect("recipe_app.db", isolation_level=None)
     cur = con.cursor()
@@ -352,4 +440,14 @@ def get_ingredients() -> list:
     return ingreds
 
 def issue_error(subject: str) -> str:
+    """
+    Given a subject, returns a message indicating the user forgot the 'subject'.
+
+    Arguments:
+    subject: string representing the subject of the sentence
+
+    Return:
+    str: message indicating the user forgot the 'subject'
+    """
+
     return f"Whoops! You forgot {subject}. Please submit again"
